@@ -1,4 +1,9 @@
 package com.example.alimentared.Entity;
 
-public class EstadoLote {
+public enum EstadoLote {
+    DISPONIBLE,
+    RESERVADO,
+    AGOTADO,
+    VENCIDO,
+    CANCELADO
 }

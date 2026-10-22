@@ -1,4 +1,9 @@
 package com.example.alimentared.Entity;
 
-public class EstadoSolicitud {
+public enum EstadoSolicitud {
+    PENDIENTE,
+    APROBADA,
+    RECHAZADA,
+    CANCELADA,
+    COMPLETADA
 }
