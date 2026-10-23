@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "usuarios")
 @Data
-@NoArgsConstructor // Exigido por Spring Data JPA
+@NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
 

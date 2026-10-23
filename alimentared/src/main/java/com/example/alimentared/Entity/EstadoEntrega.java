@@ -4,5 +4,5 @@ public enum EstadoEntrega {
     PROGRAMADA,
     EN_TRANSITO,
     COMPLETADA,
-    CON_INCIDENCIA
+    ENTREGADA, CON_INCIDENCIA
 }

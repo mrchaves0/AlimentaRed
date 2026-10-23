@@ -3,6 +3,7 @@ package com.example.alimentared.Service;
 import com.example.alimentared.Dto.Request.LoteAlimentoRequestDto;
 import com.example.alimentared.Dto.Response.LoteAlimentoResponseDto;
 import com.example.alimentared.Entity.CategoriaAlimento;
+import com.example.alimentared.Entity.EstadoLote;
 import com.example.alimentared.Entity.LoteAlimento;
 import com.example.alimentared.Entity.Organizacion;
 import com.example.alimentared.Repository.CategoriaAlimentoRepository;
@@ -58,8 +59,14 @@ public class LoteAlimentoService {
         return response;
     }
 
-    public List<LoteAlimentoResponseDto> listarLotes() {
-        List<LoteAlimento> lotes = loteRepository.findAll();
+    public List<LoteAlimentoResponseDto> listarLotes(EstadoLote estado) {
+        List<LoteAlimento> lotes;
+
+        if (estado != null) {
+            lotes = loteRepository.findByEstado(estado);
+        } else {
+            lotes = loteRepository.findAll();
+        }
 
         return lotes.stream().map(lote -> {
             LoteAlimentoResponseDto dto = new LoteAlimentoResponseDto();
@@ -75,5 +82,24 @@ public class LoteAlimentoService {
             dto.setNombreCategoria(lote.getCategoria().getNombre());
             return dto;
         }).collect(Collectors.toList());
+
+    }
+    public LoteAlimentoResponseDto obtenerLotePorId(Long id) {
+        LoteAlimento lote = loteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Lote no encontrado"));
+
+        LoteAlimentoResponseDto dto = new LoteAlimentoResponseDto();
+        dto.setId(lote.getId());
+        dto.setTitulo(lote.getTitulo());
+        dto.setDescripcion(lote.getDescripcion());
+        dto.setCantidadTotal(lote.getCantidadTotal());
+        dto.setCantidadDisponible(lote.getCantidadDisponible());
+        dto.setUnidadMedida(lote.getUnidadMedida());
+        dto.setFechaExpiracion(lote.getFechaExpiracion());
+        dto.setEstado(lote.getEstado());
+        dto.setNombreOrganizacion(lote.getOrganizacion().getNombre());
+        dto.setNombreCategoria(lote.getCategoria().getNombre());
+
+        return dto;
     }
 }
