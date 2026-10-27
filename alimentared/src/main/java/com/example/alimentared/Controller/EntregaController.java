@@ -1,13 +1,11 @@
 package com.example.alimentared.Controller;
 
+import com.example.alimentared.Entity.Entrega;
 import com.example.alimentared.Service.EntregaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/entregas")
@@ -16,14 +14,19 @@ public class EntregaController {
 
     private final EntregaService entregaService;
 
-    @PatchMapping("/{id}/confirmar")
-    public ResponseEntity<Map<String, String>> confirmarEntrega(@PathVariable Long id) {
-        String mensaje = entregaService.confirmarRecepcion(id);
+
+    @PostMapping("/programar")
+    public ResponseEntity<Entrega> programarEntrega(
+            @RequestParam Long solicitudId,
+            @RequestParam String responsableRetiro) {
+        Entrega nuevaEntrega = entregaService.programarEntrega(solicitudId, responsableRetiro);
+        return new ResponseEntity<>(nuevaEntrega, HttpStatus.CREATED);
+    }
 
 
-        Map<String, String> response = new HashMap<>();
-        response.put("mensaje", mensaje);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    @PutMapping("/{id}/confirmar")
+    public ResponseEntity<String> confirmarRecepcion(@PathVariable Long id) {
+        String respuesta = entregaService.confirmarRecepcion(id);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 }

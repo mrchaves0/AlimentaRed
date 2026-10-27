@@ -37,7 +37,7 @@ public class Entrega {
     private String notas;
     @OneToOne
     @JoinColumn(name = "solicitud_id", nullable = false)
-    private SolicitudDonacion solicitud;
+    private SolicitudAlimento solicitud;
 
     @PrePersist
     protected void onCreate() {
