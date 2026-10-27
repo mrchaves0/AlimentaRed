@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/solicitudes")
+@RequestMapping("/api/solicitudes-donacion")
 @RequiredArgsConstructor
 public class SolicitudDonacionController {
 
