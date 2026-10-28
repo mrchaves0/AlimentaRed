@@ -26,22 +26,22 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // Rutas públicas que no piden token
+                        // Permitir todas las rutas de la API para acceso transparente de Donantes, Receptores y Administradores
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/usuarios/**",
                                 "/api/organizaciones/**",
                                 "/api/categorias/**",
+                                "/api/lotes/**",
+                                "/api/solicitudes/**",
+                                "/api/entregas/**",
+                                "/api/incidencias/**",
+                                "/api/reportes/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        // Permitir consultar lotes y métricas de impacto de forma pública
-                        .requestMatchers(HttpMethod.GET, "/api/lotes/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/reportes/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/solicitudes/**").permitAll()
-                        // Todo lo demás requiere que el usuario esté autenticado con su token
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
