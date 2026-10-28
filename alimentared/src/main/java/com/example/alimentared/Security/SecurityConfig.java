@@ -29,7 +29,8 @@ public class SecurityConfig {
                         // Rutas públicas que no piden token
                         .requestMatchers(
                                 "/api/auth/**",
-                                "/api/usuarios/register",
+                                "/api/usuarios/**",
+                                "/api/organizaciones/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
@@ -37,6 +38,7 @@ public class SecurityConfig {
                         // Permitir consultar lotes y métricas de impacto de forma pública
                         .requestMatchers(HttpMethod.GET, "/api/lotes/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/reportes/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/solicitudes/**").permitAll()
                         // Todo lo demás requiere que el usuario esté autenticado con su token
                         .anyRequest().authenticated()
                 )
